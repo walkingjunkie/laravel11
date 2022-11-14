@@ -10,9 +10,9 @@ class AuthorController extends Controller
 {
   public function index()
   {
-    $items = Author::all();
-    dd($items);
-    return view('index', ['items' => $items]);
+    $authors = Author::all();
+    dd($authors);
+    return view('index', ['authors' => $authors]);
     }
 
   public function find()
