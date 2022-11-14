@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
-use App\Http\Requests\AuthorRequest;
+
 
 class AuthorController extends Controller
 {
   public function index()
   {
-    $authors = Author::all();
+    $items = Author::all();
     dd($items);
-    return view('index', ['authors' => $authors]);
+    return view('index', ['items' => $items]);
     }
 
   public function find()
