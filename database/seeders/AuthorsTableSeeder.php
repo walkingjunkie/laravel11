@@ -3,17 +3,18 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Author;
 
 class AuthorsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-            $param = [
+  /**
+  * Run the database seeds.
+  *
+  * @return void
+  */
+  public function run()
+  {
+    $param = [
       'name' => 'tony',
       'age' => 35,
       'nationality' => 'American'
@@ -37,6 +38,5 @@ class AuthorsTableSeeder extends Seeder
       'nationality' => 'Chinese'
     ];
     Author::create($param);
-        //
-    }
+  }
 }
