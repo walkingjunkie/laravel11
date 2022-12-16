@@ -4,30 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\AuthorRequest;
 
 class AuthorController extends Controller
 {
   public function index()
   {
     $authors = Author::all();
-    dd($authors);
     return view('index', ['authors' => $authors]);
-    }
-
-  public function find()
-  {
-    return view('find', ['input' => '']);
-  }
-
-  public function search(Request $request)
-  {
-    $author = Author::find($request->input);
-    $param = [
-      'author' => $author,
-      'input' => $request->input
-    ];
-    return view('find', $param);
   }
 
   public function add()
@@ -41,7 +25,22 @@ class AuthorController extends Controller
     Author::create($form);
     return redirect('/');
   }
-  // 追記：ここから
+
+  public function find()
+  {
+    return view('find', ['input' => '']);
+  }
+
+  public function search(Request $request)
+  {
+    $author = Author::where('name', 'LIKE BINARY',"%{$request->input}%")->first();
+    $param = [
+      'input' => $request->input,
+      'author' => $author
+    ];
+    return view('find', $param);
+  }
+
   public function edit(Request $request)
   {
     $author = Author::find($request->id);
@@ -55,16 +54,26 @@ class AuthorController extends Controller
     Author::where('id', $request->id)->update($form);
     return redirect('/');
   }
+
   public function delete(Request $request)
   {
     $author = Author::find($request->id);
-    return view('delete',['form' => $author]);
+    return view('delete', ['form' => $author]);
   }
 
   public function remove(Request $request)
   {
-    Author::find($request->id)->delete();
-    return redirect('/');
+     Author::find($request->id)->delete();
+     return redirect('/');
   }
+  // 追記：ここから
 
+  public function bind(Author $author)
+  {
+    $data = [
+      'author'=>$author,
+    ];
+    return view('author.binds', $data);
+  }
+  // 追記：ここまで
 }
